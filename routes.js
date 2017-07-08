@@ -10,6 +10,8 @@ const jsonParser = bodyParser.json();
 const app = express();
 
 BlogPosts.create("First Title","Stuff for content","Author Mandebubble","01/01/01");
+BlogPosts.create("Second Title","More Stuff for content","Superman Mandebubble","01/02/02");
+BlogPosts.create("Third Title","Much MoreStuff for content","Lex Mandebubble","01/03/03");
 
 router.get('/', jsonParser, (req, res) => {
 	var posts = BlogPosts.get();

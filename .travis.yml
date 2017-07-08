@@ -1,0 +1,9 @@
+language: node_js
+node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: b3mBpc2JLo+SdejrSNLwm9O4hCFBvtS50xf29+53tAFWWsjz8S1sL0qlC8iOVspA0f6pon4U/epXeqyQK24oE1FPOUq5W09sj+rJcciRO3cf9A83V6w9g6sdR10ZZuPOZCYmEx3N+pHQ4STpHrceGbsD1wg1yJvVuTPY9gOdAY2U2qfX7D3bKCCe9PMg2WxVy2bTFTVn4hq+/1vBl1Y6Y1gxdKyixMI9jwD4vSmdum62uvdpzD1Im89ShVDmMxUVmWwcNWPw0ZLm1tG/1pa/tfQRqeN1nFybg2vmCkc5aRpRgwK2mxsHivIvu0U5y8OrPyDp7b+WGiMXCCmkB2a8E3lXsCACqhoHi33dKjC5MQCuUTpXkPFpO0Iby2jKIWaUNymI4r65OEempMSQKkgwiEruWb6IGsjgqySKAfKFixG6bkPGePBjGybU7lyVCEdETiTjtat/WHY51rByxSJ3uKHk4exPZob8saltNz81vMGsAwilRLJbgtS8yBmau8HuUc66JxAPySD+xe4D5ERpW66fjH68q/6zMAfh2ZugET/F0AqSVuCHLoWdmZ0YPqIKrxR4+YtI7sxM6TNb3xMuPMIx6PLEuDH62Fcq+G9ul0uAxRY/bYUooCSwbR0tyPua4VeBtFDK8ON2uIK+QCgcNucDhRlXI+xhRH+i7+Bv/SI=
+  app: https://damp-citadel-75909.herokuapp.com/ | https://git.heroku.com/damp-citadel-75909.git
+  on:
+    repo: keyth202/blog-api
