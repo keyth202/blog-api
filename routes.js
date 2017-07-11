@@ -64,9 +64,10 @@ router.put('/:id', jsonParser, (req, res) => {
     title: req.body.title,
     content: req.body.content,
     author: req.body.author,
-    date: req.body.publishDate
+    publishDate: req.body.publishDate
   });
-  res.status(204).json(updatedItem);
+  // console.log(`---Blog post ---\`${Object.keys(updatedItem)}\``);
+  res.status(200).send(updatedItem);
 })
 
 module.exports = router;
