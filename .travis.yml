@@ -7,4 +7,4 @@ deploy:
   app: https://damp-citadel-75909.herokuapp.com/ | https://git.heroku.com/damp-citadel-75909.git
   on:
     repo: keyth202/blog-api
-  before_script: chmod 0777 ./node_modules/mocha/bin/mocha
+before_script: chmod 0777 ./node_modules/mocha/bin/mocha
