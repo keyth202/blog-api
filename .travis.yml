@@ -5,6 +5,6 @@ deploy:
   provider: heroku
   api_key:
     secure: X8lQ7xDF0B8hjej1/nWXBjDNggOefwBGkUfrO/mp2DYFQva+SiTNqhGfnJMeSOCJNcN0ST558qh/GTrqUcNeVj8VBONKBCQeFTpDLhTeXuXA3cM82Y6CGz/olCHYDCghgAQn1/F2smkRfv2Nd+LT3LcDZ/e3Hc3rinOcXRjbVh4BIUR4HZx2Xy65FUSeHCEOxSKQdnBmFLaCPVcWv4r8nLEvmrc1OqJJKFPhR5cJ7SbEQhK1iKCvA83lauKQjAqN4T0aWx9r1YXOD4iST32HrWsSx4JeZJiQjUodrn2r9Fk3Bh13oAznasEnJMrnwcNrRxzT6E0vrRZNE5dzb70qh1UtssXQdfPiNiT4a+jaQII8eEhQZVNL0habT1n/u91nGcGx8TycSqpVo+T4vVyzg8bPDDwmhykf0jU6mjrR29vHsZ0rBnkaWkINcdSQqkVjee8RswpNv7cZzMtiJxGY5d1QL7lUfVihD5ZA9EQx46ml0omm2viam98uLkJEAuZcgStb8uSfRkmN488hIBc6yWntyoDZ+qC0iZ5hTVjg+hwGqUke0oeKc36oDWD5q9/8RfeeqZsf6RguJCvC4hhlUJBnZWKn52tfntj+qRrlrpF78v4fNdl0WlnDyxrgq3f5U7BiP5CA8543ILWaNSs0wHHrSlvqD7wcK7AtHxRnnyQ=
-  app: blog-api
+  app: https://mighty-savannah-43632.herokuapp.com/ | https://git.heroku.com/mighty-savannah-43632.git
   on:
     repo: keyth202/blog-api
