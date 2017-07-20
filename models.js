@@ -1,13 +1,34 @@
-const uuid = require('uuid');
+// const uuid = require('uuid');
 
-// This module provides volatile storage, using a `BlogPost`
-// model. We haven't learned about databases yet, so for now
-// we're using in-memory storage. This means each time the app stops, our storage
-// gets erased.
+const mongoose = require('mongoose');
 
-// Don't worry too much about how BlogPost is implemented.
-// Our concern in this example is with how the API layer
-// is implemented, and getting it to use an existing model.
+//blogpost schema
+
+const blogSchema = mongoose.Schema({
+  title: {type: String, required:true},
+  author: {
+    firstName: {type: String, required:true},
+    lastName: {type: String, required:true}
+  },
+  content: {type: String, required:true},
+  publishDate: {type: String, required:true}
+});
+
+// Name concatentation
+blogSchema.virtual('nameString').get(function(){
+  return `${this.firstName} ${this.lastName}`.trim()
+});
+
+blogSchema.methods.apiRepr = function(){
+  return {
+    id:this._id,
+    title: this.title,
+    author: this.nameString,
+    content: this.content,
+    publishDate: this.publishDate
+  };
+}
+
 
 
 function StorageException(message) {
@@ -18,7 +39,7 @@ function StorageException(message) {
 const BlogPosts = {
   create: function(title, content, author, publishDate) {
     const post = {
-      id: uuid.v4(),
+      //id: uuid.v4(),
       title: title,
       content: content,
       author: author,
@@ -66,5 +87,6 @@ function createBlogPostsModel() {
   return storage;
 }
 
+const Blogs = mongoose.model('blogposts', blogSchema)
 
-module.exports = {BlogPosts: createBlogPostsModel()};
+module.exports = {BlogPosts: createBlogPostsModel(), Blogs};
