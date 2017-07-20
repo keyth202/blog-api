@@ -7,16 +7,16 @@ const mongoose = require('mongoose');
 const blogSchema = mongoose.Schema({
   title: {type: String, required:true},
   author: {
-    firstName: {type: String, required:true},
-    lastName: {type: String, required:true}
+    firstName: {type: String},
+    lastName: {type: String}
   },
   content: {type: String, required:true},
-  publishDate: {type: String, required:true}
+  publishDate: {type: Date, default:Date.now}
 });
 
 // Name concatentation
 blogSchema.virtual('nameString').get(function(){
-  return `${this.firstName} ${this.lastName}`.trim()
+  return `${this.author.firstName} ${this.author.lastName}`.trim();
 });
 
 blogSchema.methods.apiRepr = function(){
@@ -31,11 +31,7 @@ blogSchema.methods.apiRepr = function(){
 
 
 
-function StorageException(message) {
-   this.message = message;
-   this.name = "StorageException";
-}
-
+/*
 const BlogPosts = {
   create: function(title, content, author, publishDate) {
     const post = {
@@ -81,12 +77,15 @@ const BlogPosts = {
   }
 };
 
+
 function createBlogPostsModel() {
   const storage = Object.create(BlogPosts);
   storage.posts = [];
   return storage;
 }
 
+*/
+
 const Blogs = mongoose.model('blogposts', blogSchema)
 
-module.exports = {BlogPosts: createBlogPostsModel(), Blogs};
+module.exports = {Blogs};
