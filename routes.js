@@ -21,20 +21,17 @@ const jsonParser = bodyParser.json();
 	res.send(posts);
 }) */
 
-router.get('/', jsonParser, (req, res) => {
+router.get('/', (req, res) => {
   Blogs.find().limit(10).exec()
     .then(blogs => {
-      res.json({
-        blogs: blogs.map(
-          (blogs)=> Blogs.apiRepr())
-      });
+      res.json( blogs.map(blogs=> Blogs.apiRepr()));
     })
     .catch(err => {
         console.error(err);
         res.status(500).json({message: 'Internal server error'});
 });
 
-router.get('/:id', jsonParser, (req, res) =>{
+router.get('/:id', (req, res) =>{
   Blogs
     .findById(req.params.id)
     .exec()
@@ -62,7 +59,7 @@ router.get('/:id', jsonParser, (req, res) =>{
   res.status(201).json(item);
 }); */
 
-router.post('/',  jsonParser, (req, res) =>{
+router.post('/', (req, res) =>{
   const requiredFields = ['title', 'content','author'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -78,10 +75,13 @@ router.post('/',  jsonParser, (req, res) =>{
       title: req.body.title,
       author: req.body.author,
       content: req.body.content,
-      publishDate: req.body.publishDate
-    });
+    })
+  .then(blogs => res.status(201).json(blogs.apiRepr))
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({error:'Internal Server Error'})
+  });
 
-  res.status(201).json(item);
 });
 
 // Delete blogs (by id)
@@ -96,7 +96,7 @@ router.delete('/:id', (req, res) => {
   Blogs
     .findByIdAndRemove(req.params.id)
     .exec()
-    .then(blogs => res.status(204).end())
+    .then(blogs => res.status(204).json({message:'Post deleted'}))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
@@ -131,8 +131,9 @@ router.delete('/:id', (req, res) => {
   res.status(200).send(updatedItem);
 }) */
 
-router.put('/:id', jsonParser, (req, res) => {
-  const requiredFields = ['title', 'content','author','id'];
+router.put('/:id', (req, res) => {
+  const requiredFields = ['title', 'content','author'];
+
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -141,12 +142,13 @@ router.put('/:id', jsonParser, (req, res) => {
       return res.status(400).send(message);
     }
   }
+
   if (req.params.id !== req.body.id) {
     const message = (
       `Request path id (${req.params.id}) and request body id ` +
       `(${req.body.id}) must match`);
     console.error(message);
-    return res.status(400).send(message);
+    return res.status(400).json({error:'Ids do not match'});
   }
 
   const toUpdate = {};
@@ -158,12 +160,12 @@ router.put('/:id', jsonParser, (req, res) => {
   });
 
   Blogs
-    .findByIdAndUpdate(req.params.id, {$set:toUpdate})
+    .findByIdAndUpdate(req.params.id, {$set:toUpdate}, {new:true})
     .exec()
-    .then(restaurant => res.status(204).end())
+    .then(blogs => res.status(201).json(toUpdate.apiRepr()))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
 
 
-module.exports = {router};
+module.exports = router;
