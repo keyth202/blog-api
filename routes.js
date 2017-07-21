@@ -29,6 +29,7 @@ router.get('/', (req, res) => {
     .catch(err => {
         console.error(err);
         res.status(500).json({message: 'Internal server error'});
+    });
 });
 
 router.get('/:id', (req, res) =>{
@@ -79,7 +80,7 @@ router.post('/', (req, res) =>{
   .then(blogs => res.status(201).json(blogs.apiRepr))
   .catch(err => {
     console.error(err);
-    res.status(500).json({error:'Internal Server Error'})
+    res.status(500).json({error:'Internal Server Error'});
   });
 
 });
