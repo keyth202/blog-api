@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const routes = require('./routes');
 
 
-const {Blogs} = require('./models');
+//const {Blogs} = require('./models');
 const {PORT, DATABASE_URL} = require('./config');
 
 

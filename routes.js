@@ -24,7 +24,7 @@ const jsonParser = bodyParser.json();
 router.get('/', (req, res) => {
   Blogs.find().limit(10).exec()
     .then(blogs => {
-      res.json( blogs.map(blogs=> Blogs.apiRepr()));
+      res.json( blogs.map(blog => blog.apiRepr()));
     })
     .catch(err => {
         console.error(err);
@@ -36,7 +36,9 @@ router.get('/:id', (req, res) =>{
   Blogs
     .findById(req.params.id)
     .exec()
-    .then(blogs => res.json(Blogs.apiRepr()))
+    .then(blogs => {
+      res.json(blogs.map(blog => blog.apiRepr()));
+    })
     .catch(err => {
       console.error(err);
       res.statys(500).json({message: 'Internal server error'});
@@ -77,7 +79,7 @@ router.post('/', (req, res) =>{
       author: req.body.author,
       content: req.body.content,
     })
-  .then(blogs => res.status(201).json(blogs.apiRepr))
+  .then(blog => res.status(201).json(blog.apiRepr()))
   .catch(err => {
     console.error(err);
     res.status(500).json({error:'Internal Server Error'});
