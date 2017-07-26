@@ -91,15 +91,6 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
   const requiredFields = ['title', 'content','author'];
 
-  for (let i=0; i<requiredFields.length; i++) {
-    const field = requiredFields[i];
-    if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`;
-      console.error(message);
-      return res.status(400).send(message);
-    }
-  }
-
   if (req.params.id !== req.body.id) {
     const message = (
       `Request path id (${req.params.id}) and request body id ` +
@@ -119,7 +110,7 @@ router.put('/:id', (req, res) => {
   Blogs
     .findByIdAndUpdate(req.params.id, {$set:toUpdate}, {new:true})
     .exec()
-    .then(blogs => res.status(201).json(toUpdate.apiRepr()))
+    .then(updatedPost => res.status(201).json(updatedPost.apiRepr()))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 

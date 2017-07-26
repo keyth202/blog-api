@@ -168,6 +168,7 @@ describe('POST endpoint', function() {
             .send(updateData);
         })
         .then(res => {
+          console.log(res.body);
           res.should.have.status(201);
           res.should.be.json;
           res.body.should.be.a('object');
