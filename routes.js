@@ -16,13 +16,9 @@ const jsonParser = bodyParser.json();
 
 //Get responses
 
-/* router.get('/', jsonParser, (req, res) => {
-	var posts = BlogPosts.get();
-	res.send(posts);
-}) */
 
 router.get('/', (req, res) => {
-  Blogs.find().limit(10).exec()
+  Blogs.find().exec()
     .then(blogs => {
       res.json( blogs.map(blog => blog.apiRepr()));
     })
@@ -47,20 +43,6 @@ router.get('/:id', (req, res) =>{
 
 //Post responses
 
-/* router.post('/', jsonParser, (req, res) => {
-  
-  const requiredFields = ['title', 'content','author'];
-  for (let i=0; i<requiredFields.length; i++) {
-    const field = requiredFields[i];
-    if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`
-      console.error(message);
-      return res.status(400).send(message);
-    }
-  }
-  const item = BlogPosts.create(req.body.title, req.body.content,req.body.author,req.body.publishDate);
-  res.status(201).json(item);
-}); */
 
 router.post('/', (req, res) =>{
   const requiredFields = ['title', 'content','author'];
@@ -76,7 +58,10 @@ router.post('/', (req, res) =>{
   Blogs
     .create({
       title: req.body.title,
-      author: req.body.author,
+      author: {
+        firstName: req.body.author.firstName,
+        lastName: req.body.author.lastName
+      }, 
       content: req.body.content,
     })
   .then(blog => res.status(201).json(blog.apiRepr()))
@@ -89,11 +74,7 @@ router.post('/', (req, res) =>{
 
 // Delete blogs (by id)
 
-/* router.delete('/:id', (req, res) => {
-  BlogPosts.delete(req.params.id);
-  console.log(`Deleted blog post \`${req.params.ID}\``);
-  res.status(204).end();
-}); */
+
 
 router.delete('/:id', (req, res) => {
   Blogs
@@ -105,34 +86,7 @@ router.delete('/:id', (req, res) => {
 
 //put by id
 
-/* router.put('/:id', jsonParser, (req, res) => {
-  const requiredFields = ['title', 'content','author','id'];
-  for (let i=0; i<requiredFields.length; i++) {
-    const field = requiredFields[i];
-    if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`
-      console.error(message);
-      return res.status(400).send(message);
-    }
-  }
-  if (req.params.id !== req.body.id) {
-    const message = (
-      `Request path id (${req.params.id}) and request body id `
-      `(${req.body.id}) must match`);
-    console.error(message);
-    return res.status(400).send(message);
-  }
-  console.log(`Updating Blogs \`${req.params.id}\``);
-  const updatedItem = BlogPosts.update({
-    id: req.params.id,
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author,
-    publishDate: req.body.publishDate
-  });
-  // console.log(`---Blog post ---\`${Object.keys(updatedItem)}\``);
-  res.status(200).send(updatedItem);
-}) */
+
 
 router.put('/:id', (req, res) => {
   const requiredFields = ['title', 'content','author'];
